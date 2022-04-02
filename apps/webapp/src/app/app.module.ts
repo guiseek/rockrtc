@@ -3,19 +3,35 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { AppProviders } from './app.providers';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
 
+import { HomeComponent } from './home/home.component';
+
+import { AppProviders } from './app.providers';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabledBlocking' }),
+    ReactiveFormsModule,
+    RouterModule.forRoot(
+      [
+        {
+          path: '',
+          component: HomeComponent,
+        },
+        {
+          path: ':room',
+          loadChildren: () =>
+            import('./call/call.module').then((m) => m.CallModule),
+        },
+      ],
+      { initialNavigation: 'enabledBlocking' }
+    ),
   ],
-  providers: [
-    AppProviders.forPorts(environment)
-  ],
+  providers: [AppProviders.forPorts(environment)],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

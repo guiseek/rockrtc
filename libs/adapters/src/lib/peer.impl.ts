@@ -8,7 +8,7 @@ import {
   Signaling,
   PeerUiState,
   SignalMessage,
-} from '@webp2p/ports';
+} from '@rockrtc/ports';
 
 
 export class PeerImpl implements Peer {
@@ -77,19 +77,13 @@ export class PeerImpl implements Peer {
   getConfig() {
     let audio: string | Partial<MediaDeviceInfo> =
       localStorage.getItem('audio') ?? 'true';
-    let video: string | Partial<MediaDeviceInfo> =
-      localStorage.getItem('video') ?? 'true';
 
     if (audio) {
       const { deviceId } = JSON.parse(audio as string);
       audio = { deviceId };
     }
-    if (video) {
-      const { deviceId } = JSON.parse(video as string);
-      video = { deviceId };
-    }
 
-    return { audio, video } as MediaStreamConstraints;
+    return { audio, video: false } as MediaStreamConstraints;
   }
 
   waitData(): void {
@@ -128,10 +122,10 @@ export class PeerImpl implements Peer {
 
       this.event.get('stream').map((fn) => fn(stream));
 
-      const [videoTrack] = this.stream.getVideoTracks();
+      // const [videoTrack] = this.stream.getVideoTracks();
       const [audioTrack] = this.stream.getAudioTracks();
 
-      this.conn.addTrack(videoTrack);
+      // this.conn.addTrack(videoTrack);
       this.conn.addTrack(audioTrack);
 
       this.remote = new MediaStream();
@@ -306,7 +300,7 @@ export class PeerImpl implements Peer {
     const tracks = stream.getAudioTracks();
     tracks.forEach((t) => (t.enabled = !t.enabled));
     this.uiState.audio = !this.uiState.audio;
-    
+
     const events = this.event.get('toggleAudio');
     events.map((fn) => fn(this.uiState.audio));
   }

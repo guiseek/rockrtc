@@ -1,0 +1,15 @@
+<p>call works!</p>
+
+<audio
+  id="local"
+  #local
+  autoplay
+  [muted]="peer.stream"
+  [srcObject]="peer.stream"
+></audio>
+
+<audio id="remote" #remote autoplay [srcObject]="peer.remote"></audio>
+
+<button type="button" (click)="hangUp()">
+  Sair
+</button>

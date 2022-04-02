@@ -3,7 +3,7 @@ import {
   DataTransfer,
   EventCallback,
   EventEmitter,
-} from '@webp2p/ports';
+} from '@rockrtc/ports';
 
 export interface DataTransferMap {
   message: string;
@@ -48,4 +48,3 @@ export class DataTransferImpl implements DataTransfer<DataTransferMap> {
     };
   }
 }
- 

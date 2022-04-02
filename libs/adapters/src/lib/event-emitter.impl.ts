@@ -3,7 +3,7 @@ import {
   PeerEventMap,
   EventEmitter,
   EventCallback,
-} from '@webp2p/ports';
+} from '@rockrtc/ports';
 
 export class EventEmitterImpl implements EventEmitter<PeerEventMap> {
   events: EventCallback<PeerEventMap>;
