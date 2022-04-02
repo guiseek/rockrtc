@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from '../../environments/environment';
+import { AppProviders } from '../app.providers';
 
 import { CallComponent } from './call.component';
 
@@ -8,9 +11,10 @@ describe('CallComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CallComponent ]
-    })
-    .compileComponents();
+      imports: [ RouterTestingModule ],
+      declarations: [CallComponent],
+      providers: [ AppProviders.forPorts(environment) ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

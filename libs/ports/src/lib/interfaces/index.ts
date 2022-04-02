@@ -1,3 +1,4 @@
+export * from './data-transfer-map';
 export * from './event-emitter';
 export * from './data-progress';
 export * from './peer-ui-state';

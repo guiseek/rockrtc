@@ -1,6 +1,11 @@
-import { EventEmitter, PeerUiState, SignalMessage } from './interfaces';
-import { DataTransfer, DataTransferMap } from './data-transfer';
+import { DataTransfer } from './data-transfer';
 import { PeerEventMap } from './types';
+import {
+  PeerUiState,
+  EventEmitter,
+  SignalMessage,
+  DataTransferMap,
+} from './interfaces';
 
 export abstract class Peer {
   abstract user: string;
@@ -24,7 +29,9 @@ export abstract class Peer {
 
   public abstract upload(message: File): void;
 
-  abstract openChannel(fn: (channel: DataTransfer<DataTransferMap>) => void): void
+  abstract openChannel(
+    fn: (channel: DataTransfer<DataTransferMap>) => void
+  ): void;
 
   abstract gotStream(): (stream: MediaStream) => void;
 
@@ -37,7 +44,7 @@ export abstract class Peer {
   abstract onReceiveMessageCallback(data: ArrayBuffer): void;
 
   abstract toggleVideo(stream: MediaStream): void;
-  
+
   abstract toggleAudio(stream: MediaStream): void;
 
   abstract toggle(stream: MediaStream, uiState: keyof PeerUiState): void;

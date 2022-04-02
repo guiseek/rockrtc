@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "adapters": "libs/adapters",
+    "domain": "libs/domain",
     "gateway": "apps/gateway",
     "ports": "libs/ports",
     "webapp": "apps/webapp"
