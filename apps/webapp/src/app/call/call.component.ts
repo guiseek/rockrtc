@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { fromEvent, take } from 'rxjs';
 import { Peer } from '@rockrtc/ports';
 
 @Component({
@@ -10,10 +9,6 @@ import { Peer } from '@rockrtc/ports';
 })
 export class CallComponent implements OnInit {
   room = '';
-
-  readonly userGesture$ = fromEvent<MouseEvent>(document, 'click').pipe(
-    take(1)
-  );
 
   constructor(
     readonly route: ActivatedRoute,

@@ -1,17 +1,15 @@
-<p>home works!</p>
-
 <form>
-  <section>
-    <label>Sala</label>
-    <input matInput [formControl]="room" placeholder="Sala" />
-    <small>
-      Este código foi gerado aleatoriamente, mas é possível altera-lo
-    </small>
-  </section>
+  <mat-card>
 
-  <footer>
-    <button type="button" [disabled]="room.invalid" (click)="onSubmit()">
-      Entrar na sala
-    </button>
-  </footer>
+    <mat-form-field appearance="fill">
+      <mat-label>Sala</mat-label>
+      <input matInput [formControl]="room" name="room" autocomplete="mobile" placeholder="Sala" />
+    </mat-form-field>
+
+      <mat-card-actions [align]="'end'">
+        <button mat-button type="button" [disabled]="room.invalid" (click)="onSubmit()">
+          Entrar na sala
+        </button>
+      </mat-card-actions>
+  </mat-card>
 </form>

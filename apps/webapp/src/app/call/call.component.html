@@ -1,5 +1,25 @@
 <p>call works!</p>
 
+<pre> {{ peer.conn.connectionState }} </pre>
+<ng-container
+  *ngIf="peer.conn.connectionState === 'connected'; else ringAnimationTemplate"
+>
+  <section>
+    <audio id="remote" #remote autoplay [srcObject]="peer.remote"></audio>
+  </section>
+  <canvas rockrtcFrequencyAnalyser [audio]="remote"></canvas>
+</ng-container>
+
+<ng-template #ringAnimationTemplate>
+  <button type="button" class="ring" (click)="connect()">
+    <div class="rockrtc-phone rockrtc-green">
+      <div class="rockrtc-ph-circle"></div>
+      <div class="rockrtc-ph-circle-fill"></div>
+      <div class="rockrtc-ph-img-circle"></div>
+    </div>
+  </button>
+</ng-template>
+
 <audio
   id="local"
   #local
@@ -8,20 +28,4 @@
   [srcObject]="peer.stream"
 ></audio>
 
-<section>
-  <audio id="remote" #remote autoplay [srcObject]="peer.remote"></audio>
-
-  <!--
-    Browser warning
-
-    The AudioContext was not allowed to start.
-    It must be resumed (or created) after a user gesture on the page.
-    https://goo.gl/7K7WLu
-  -->
-  <ng-container *ngIf="userGesture$ | async">
-    <canvas rockrtcFrequencyAnalyser [audio]="remote"></canvas>
-  </ng-container>
-</section>
-
-<button type="button" (click)="connect()">Conectar</button>
 <button type="button" (click)="hangUp()">Sair</button>

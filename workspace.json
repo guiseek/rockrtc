@@ -5,6 +5,7 @@
     "domain": "libs/domain",
     "gateway": "apps/gateway",
     "ports": "libs/ports",
+    "ui": "libs/ui",
     "webapp": "apps/webapp"
   }
 }
