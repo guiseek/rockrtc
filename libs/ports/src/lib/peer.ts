@@ -24,6 +24,7 @@ export abstract class Peer {
   abstract readonly event: EventEmitter<PeerEventMap>;
 
   public abstract connect(uuid?: string): void;
+  public abstract connect(uuid?: string, constraints?: MediaStreamConstraints): void;
 
   public abstract send(message: string): void;
 

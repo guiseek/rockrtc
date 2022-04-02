@@ -48,10 +48,10 @@ export class PeerImpl implements Peer {
     };
   }
 
-  public connect(meet?: string): void {
+  public connect(meet?: string, constraints?: MediaStreamConstraints) {
     if (meet) this.meet = meet;
 
-    this.signalUp();
+    this.signalUp(constraints);
     this.waitData();
   }
 
@@ -62,9 +62,9 @@ export class PeerImpl implements Peer {
     };
   }
 
-  async signalUp(): Promise<void> {
+  async signalUp(constraints: MediaStreamConstraints = { audio: true }) {
     await navigator.mediaDevices
-      .getUserMedia(this.getConfig())
+      .getUserMedia(constraints)
       .then(this.gotStream());
 
     this.conn.onicecandidate = this.getIceCandidate();
@@ -72,18 +72,6 @@ export class PeerImpl implements Peer {
     this.signaling.on('message', (message) => {
       this.getSignalMessage()(message);
     });
-  }
-
-  getConfig() {
-    let audio: string | Partial<MediaDeviceInfo> =
-      localStorage.getItem('audio') ?? 'true';
-
-    if (audio) {
-      const { deviceId } = JSON.parse(audio as string);
-      audio = { deviceId };
-    }
-
-    return { audio, video: false } as MediaStreamConstraints;
   }
 
   waitData(): void {
